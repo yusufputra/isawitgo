@@ -15,4 +15,16 @@ module.exports ={
   };
 
 
-  
+  // module.exports ={
+  //   client : 'mysql',
+  //   connection: {
+  //     host : 'https://srv46.niagahoster.com/',
+  //     user : 'u5086307_isawit',
+  //     password : 'pagikucerahku2021^^',
+  //     database:'u5086307_isawit',
+  //     options: {
+  //         port: 3306,
+  //         encrypt: true,
+  //     }
+  //   },
+  // };

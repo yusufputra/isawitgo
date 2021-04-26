@@ -4,15 +4,16 @@
 // module.exports=db;
 
 module.exports ={
-    client : 'mysql',
+    client : 'mssql',
     connection: {
-      server : 'localhost',
-      user : 'username here',
-      password : 'password here',
-      database:'isawit',
+      host : 'xxx',
+      user : 'xxx',
+      password : 'xxx^^',
+      database:'xx',
+      LoginTimeout : 30,
       options: {
-          port: 4406,
-          encrypt: true
+          port: 1443,
+          encrypt: true,
       }
-    }
+    },
   };
