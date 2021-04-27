@@ -5,13 +5,13 @@ const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
-var knex = require("knex")(options)
+var knex = require("knex")(options);
 
 const schema = Joi.object().keys({
   nama: Joi.string().required(),
   email: Joi.string().email({ minDomainSegments: 2 }).required(),
   password: Joi.string().min(8).required().required(),
-  nohp: Joi.number().integer().min(10).max(30),
+  nohp: Joi.number().integer(),
   pin: Joi.number().integer(),
   role: Joi.number().required(),
   foto: Joi.string(),
@@ -19,7 +19,7 @@ const schema = Joi.object().keys({
 
 const loginschema = Joi.object().keys({
   email: Joi.string().email({ minDomainSegments: 2 }).required(),
-  password: Joi.string().min(8).required().required(),
+  password: Joi.string().required(),
 });
 
 router.get("/", (req, res) => {
@@ -31,17 +31,20 @@ router.get("/", (req, res) => {
     })
     .catch((err) => {
       res.status(500).json(err);
-      console.log(err)
     });
 });
 
 router.post("/signup", (req, res, next) => {
   let query = "select * from account where email ='" + req.body.email + "'";
   const result = Joi.validate(req.body, schema);
+  // console.log(result);
+  // res.json({
+  //   message: result,
+  // });
   if (result.error === null) {
     knex.schema.raw(query).then((rows) => {
       console.log(rows);
-      if (rows.length != 0) {
+      if (rows[0].length != 0) {
         const error = new Error("email sudah dibuat");
         res.status(409);
         next(error);
@@ -53,14 +56,14 @@ router.post("/signup", (req, res, next) => {
           //     password: hashedPassword
           // };
           const queryUser =
-            "INSERT INTO accout (nama,email,password,nohp,pin,role,foto) values('" +
+            "INSERT INTO account (nama,email,password,nohp,pin,role,foto) values('" +
             req.body.nama +
             "','" +
             req.body.email +
             "','" +
             hashedPassword +
             "','" +
-            req.body.nphp +
+            req.body.nohp +
             "','" +
             req.body.pin +
             "','" +
@@ -77,8 +80,8 @@ router.post("/signup", (req, res, next) => {
     });
   } else {
     console.log(result);
-    res.json({
-      message: "Hello",
+    res.status(400).json({
+      message: result.error,
     });
   }
 });
@@ -89,13 +92,16 @@ router.post("/login", (req, res, next) => {
     knex.schema
       .raw("SELECT * FROM account WHERE email ='" + req.body.email + "'")
       .then((ress) => {
-        console.log(ress);
+        let user = JSON.parse(JSON.stringify(ress[0]))[0];
         console.log(req.body);
-        bcrypt.compare(req.body.password, ress[0].password).then((result) => {
+        bcrypt.compare(req.body.password, user.password).then((result) => {
           if (result) {
             const payload = {
-              _id: ress[0].idUser,
-              username: ress[0].username,
+              id: user.id,
+              nama: user.nama,
+              email: user.email,
+              nohp: user.nohp,
+              role: user.role,
             };
             console.log(process.env.TOKEN_SECRET);
             jwt.sign(

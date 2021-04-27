@@ -1,19 +1,27 @@
-// const monk =require('monk');
-// const db = monk('mongodb://root:game9898@ds151383.mlab.com:51383/forum-basdat')
+// module.exports = {
+//   client: "mssql",
+//   connection: {
+//     host: "isawit.database.windows.net",
+//     user: "isawit",
+//     password: "pagikucerahku2021^^",
+//     database: "isawit",
+//     options: {
+//       port: 1443,
+//       encrypt: true,
+//     },
+//   },
+// };
 
-// module.exports=db;
-
-module.exports ={
-    client : 'mssql',
-    connection: {
-      host : 'xxx',
-      user : 'xxx',
-      password : 'xxx^^',
-      database:'xx',
-      LoginTimeout : 30,
-      options: {
-          port: 1443,
-          encrypt: true,
-      }
+module.exports = {
+  client: "mysql",
+  connection: {
+    host: "127.0.0.1",
+    user: "root",
+    password: "",
+    database: "isawit",
+    options: {
+      port: 3306,
+      encrypt: true,
     },
-  };
+  },
+};
