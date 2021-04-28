@@ -4,16 +4,17 @@ const router = express.Router();
 var knex = require("knex")(options);
 const Joi = require("joi");
 
-const schemakyc = Joi.object().keys({
+const schemalahan = Joi.object().keys({
+  idKyc: Joi.number().integer(),
   nama: Joi.string().required(),
-  alamat: Joi.string().required(),
-  nik: Joi.number().integer().required(),
-  fotoktp: Joi.string().required(),
-  pekerjaan: Joi.string().required(),
-  pendapatan: Joi.number().integer().required(),
-  bank: Joi.string().required(),
-  norek: Joi.number().integer().required(),
-  npwp: Joi.number().integer(),
+  foto: Joi.string().required(),
+  status: Joi.string().required(),
+  lokasi: Joi.string().required(),
+  longi: Joi.string(),
+  lat: Joi.string(),
+  luas: Joi.number().integer().required(),
+  jumlahpohon: Joi.number().integer().required(),
+  jenispohon: Joi.string().required(),
 });
 
 router.get("/", (req, res) => {
@@ -30,20 +31,21 @@ router.get("/", (req, res) => {
 
 router.post("/create", (req, res) => {
   console.log(req.body);
-  const result = Joi.validate(req.body, schemakyc);
+  const result = Joi.validate(req.body, schemalahan);
   if (result.error === null) {
-    knex("kyc")
+    knex("lahansawit")
       .insert({
         idAcc: req.user.id,
+        idKyc: req.body.idKyc,
         nama: req.body.nama,
-        alamat: req.body.alamat,
-        nik: req.body.nik,
-        fotoktp: req.body.fotoktp,
-        pekerjaan: req.body.pekerjaan,
-        pendapatan: req.body.pendapatan,
-        bank: req.body.bank,
-        norek: req.body.norek,
-        npwp: req.body.npwp,
+        foto: req.body.foto,
+        status: req.body.status,
+        lokasi: req.body.lokasi,
+        longi: req.body.longi,
+        lat: req.body.lat,
+        luas: req.body.luas,
+        jumlahPohon: req.body.jumlahpohon,
+        jenisPohon: req.body.jenispohon,
       })
       .then((ress) => {
         res.json(ress);

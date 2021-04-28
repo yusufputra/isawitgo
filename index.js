@@ -8,6 +8,7 @@ require("dotenv").config();
 const api = require("./api/secured");
 const kyc = require("./api/kyc");
 const auth = require("./auth/index");
+const lahan = require("./api/lahan");
 const middleware = require("./auth/middleware");
 app.use(volleyball);
 // app.use(cors({
@@ -28,6 +29,7 @@ app.use(express.json());
 app.use("/auth", auth);
 app.use("/api/", middleware.isLoggedIn, api);
 app.use("/api/kyc", middleware.isLoggedIn, kyc);
+app.use("/api/lahan", middleware.isLoggedIn, lahan);
 
 app.get("/", (req, res) => {
   res.json({
