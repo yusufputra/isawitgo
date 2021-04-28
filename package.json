@@ -2,6 +2,9 @@
   "name": "isawit",
   "version": "1.0.0",
   "description": "backend isawit go",
+  "engines": {
+    "node": "12.13.1"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
