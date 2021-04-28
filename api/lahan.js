@@ -19,7 +19,7 @@ const schemakyc = Joi.object().keys({
 router.get("/", (req, res) => {
   knex
     .select()
-    .from("kyc")
+    .from("lahansawit")
     .then((ress) => {
       res.json(ress);
     })
