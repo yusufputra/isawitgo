@@ -1,3 +1,4 @@
+require("dotenv").config();
 // module.exports = {
 //   client: "mssql",
 //   connection: {
@@ -13,15 +14,15 @@
 // };
 
 module.exports = {
-  client: "mysql",
+  client: process.env.DB_CLIENT,
   connection: {
-    host: "127.0.0.1",
-    user: "root",
-    password: "",
-    database: "isawit",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB,
     options: {
-      port: 3306,
-      encrypt: true,
+      port: process.env.DB_PORT,
+      encrypt: process.env.DB_ECNRYPTED,
     },
   },
 };
