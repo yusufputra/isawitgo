@@ -14,6 +14,11 @@ const schemakyc = Joi.object().keys({
   bank: Joi.string().required(),
   norek: Joi.number().integer().required(),
   npwp: Joi.number().integer(),
+  jenisKelamin: Joi.string().required(),
+  ttl: Joi.string().required(),
+  agama: Joi.string().required(),
+  pendidikan: Joi.string().required(),
+  bidangPekerjaan: Joi.string().required(),
 });
 
 router.get("/", (req, res) => {
@@ -44,6 +49,11 @@ router.post("/create", (req, res) => {
         bank: req.body.bank,
         norek: req.body.norek,
         npwp: req.body.npwp,
+        jenisKelamin: req.body.jenisKelamin,
+        TTL: req.body.ttl,
+        agama: req.body.agama,
+        pendidikan: req.body.pendidikan,
+        bidangPekerjaan: req.body.bidangPekerjaan,
       })
       .then((ress) => {
         res.json(ress);

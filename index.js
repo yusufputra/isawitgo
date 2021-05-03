@@ -9,6 +9,8 @@ const api = require("./api/secured");
 const kyc = require("./api/kyc");
 const auth = require("./auth/index");
 const lahan = require("./api/lahan");
+const pengajuan = require("./api/pengajuan");
+const transaksi = require("./api/transaksi");
 const middleware = require("./auth/middleware");
 app.use(volleyball);
 // app.use(cors({
@@ -30,7 +32,8 @@ app.use("/auth", auth);
 app.use("/api/", middleware.isLoggedIn, api);
 app.use("/api/kyc", middleware.isLoggedIn, kyc);
 app.use("/api/lahan", middleware.isLoggedIn, lahan);
-
+app.use("/api/pengajuan", middleware.isLoggedIn, pengajuan);
+app.use("/api/transaksi", middleware.isLoggedIn, transaksi);
 app.get("/", (req, res) => {
   res.json({
     message: "🦄🌈✨Hello World! 🌈✨🦄",

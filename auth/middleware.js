@@ -12,7 +12,7 @@ function checkToken(req, res, next) {
     if (bearer[0] == "Bearer") {
       jwt.verify(bearer[1], process.env.TOKEN_SECRET, (err, user) => {
         if (err) {
-          res.status(500).json("Server Error");
+          res.status(500).json({ error: err });
         } else {
           req.user = user;
           next();
