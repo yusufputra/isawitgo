@@ -5,7 +5,7 @@ var knex = require("knex")(options);
 const Joi = require("joi");
 
 const schemalahan = Joi.object().keys({
-  idPengajuan: Joi.number().integer().required(),
+  idPenawaran: Joi.number().integer().required(),
   jumlahslot: Joi.number().integer().required(),
 });
 
@@ -28,7 +28,7 @@ router.post("/create", (req, res) => {
     knex("transaksi")
       .insert({
         idAcc: req.user.id,
-        idPengajuan: req.body.idPengajuan,
+        idPenawaran: req.body.idPenawaran,
         jumlahslot: req.body.jumlahslot,
       })
       .then((ress) => {

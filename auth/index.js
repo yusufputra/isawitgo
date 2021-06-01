@@ -116,7 +116,7 @@ router.post("/login", (req, res, next) => {
                   const error = new Error(err);
                   next(error);
                 } else {
-                  res.json(token);
+                  res.json({ token });
                 }
               }
             );

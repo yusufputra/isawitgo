@@ -12,8 +12,10 @@ const schemalahan = Joi.object().keys({
   periodeKontrak: Joi.number().integer().required(),
   periodeBagiHasil: Joi.number().integer().required(),
   jumlahPermohonanDana: Joi.number().integer().required(),
+  totalSlot: Joi.number().integer().required(),
   tanggalMulai: Joi.string().required(),
   dokumenPengajuan: Joi.string().required(),
+  approved: Joi.number().integer().required(),
 });
 
 router.get("/", (req, res) => {
@@ -42,8 +44,10 @@ router.post("/create", (req, res) => {
         periodeKontrak: req.body.periodeKontrak,
         periodeBagiHasil: req.body.periodeBagiHasil,
         jumlahPermohonanDana: req.body.jumlahPermohonanDana,
+        totalSlot: req.body.totalSlot,
         tanggalMulai: req.body.tanggalMulai,
         dokumenPengajuan: req.body.dokumenPengajuan,
+        approved: req.body.approved,
       })
       .then((ress) => {
         res.json(ress);
@@ -58,7 +62,7 @@ router.post("/create", (req, res) => {
   }
 });
 
-router.post("/update", (req, res) => {
+router.put("/update", (req, res) => {
   knex("pengajuanpembiayaan")
     .where("id", "=", req.body.id)
     .update({
