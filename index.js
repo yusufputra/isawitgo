@@ -12,6 +12,7 @@ const lahan = require("./api/lahan");
 const pengajuan = require("./api/pengajuan");
 const transaksi = require("./api/transaksi");
 const portofolio = require("./api/portofolio");
+const testimoni = require("./api/testimoni");
 const middleware = require("./auth/middleware");
 app.use(volleyball);
 // app.use(cors({
@@ -36,6 +37,7 @@ app.use("/api/lahan", middleware.isLoggedIn, lahan);
 app.use("/api/pengajuan", middleware.isLoggedIn, pengajuan);
 app.use("/api/transaksi", middleware.isLoggedIn, transaksi);
 app.use("/api/portofolio", middleware.isLoggedIn, portofolio);
+app.use("/api/testimoni", middleware.isLoggedIn, testimoni);
 app.get("/", (req, res) => {
   res.json({
     message: "🦄🌈✨Hello World! 🌈✨🦄",
