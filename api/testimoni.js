@@ -9,9 +9,9 @@ const schemaTestimoni = Joi.object().keys({
 });
 
 router.get("/", (req, res) => {
-  knex
-    .select()
-    .from("testimoni")
+    knex.select('account.id','account.nama','account.foto','testimoni.pesan','testimoni.createdAt').from('account').join('testimoni', function() {
+        this.on('account.id', '=', 'testimoni.idAcc')
+      })
     .then((ress) => {
       res.json(ress);
     })
