@@ -5,13 +5,22 @@ var knex = require("knex")(options);
 const Joi = require("joi");
 
 const schemaTestimoni = Joi.object().keys({
-    pesan: Joi.string().required(),
+  pesan: Joi.string().required(),
 });
 
 router.get("/", (req, res) => {
-    knex.select('account.id','account.nama','account.foto','testimoni.pesan','testimoni.createdAt').from('account').join('testimoni', function() {
-        this.on('account.id', '=', 'testimoni.idAcc')
-      })
+  knex
+    .select(
+      "account.id",
+      "account.nama",
+      "account.foto",
+      "testimoni.pesan",
+      "testimoni.createdAt"
+    )
+    .from("account")
+    .join("testimoni", function () {
+      this.on("account.id", "=", "testimoni.idAcc");
+    })
     .then((ress) => {
       res.json(ress);
     })
