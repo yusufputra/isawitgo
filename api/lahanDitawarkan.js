@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
     .select()
     .from("lahanditawarkan")
     .then((ress) => {
-      res.json(ress);
+      res.json({dataLahan:ress});
     })
     .catch((error) => {
       res.status(500).json(error);
@@ -41,7 +41,7 @@ router.post("/byid", (req, res) => {
       id: req.body.id
     })
     .then((ress) => {
-      res.json(ress);
+      res.json(ress[0]);
     })
     .catch((error) => {
       res.status(500).json(error);

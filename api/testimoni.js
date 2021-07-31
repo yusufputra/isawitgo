@@ -22,7 +22,7 @@ router.get("/", (req, res) => {
       this.on("account.id", "=", "testimoni.idAcc");
     })
     .then((ress) => {
-      res.json(ress);
+      res.json({dataTestimoni: ress});
     })
     .catch((error) => {
       res.status(500).json(error);
