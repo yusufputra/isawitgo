@@ -33,6 +33,21 @@ router.get("/", (req, res) => {
     });
 });
 
+router.post("/byid", (req, res) => {
+  knex
+    .select()
+    .from("lahanditawarkan")
+    .where({
+      id: req.body.id
+    })
+    .then((ress) => {
+      res.json(ress);
+    })
+    .catch((error) => {
+      res.status(500).json(error);
+    });
+});
+
 router.post("/create", (req, res) => {
   console.log(req.body);
   const result = Joi.validate(req.body, schemaporto);
