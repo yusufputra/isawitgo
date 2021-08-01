@@ -22,11 +22,27 @@ const schemaporto = Joi.object().keys({
 });
 
 router.get("/", (req, res) => {
-  knex
-    .select()
-    .from("lahanditawarkan")
+  // knex
+  //   .select()
+  //   .from("lahanditawarkan")
+  //   .then((ress) => {
+  //     res.json({dataLahan:ress});
+  //   })
+  //   .catch((error) => {
+  //     res.status(500).json(error);
+  //   });
+
+  knex("lahanditawarkan")
+    .select(
+      "lahanditawarkan.*",
+      knex.raw(
+        "(lahanditawarkan.jumlahSlot - SUM(transaksi.jumlahslot)) as slotsementara"
+      )
+    )
+    .leftOuterJoin("transaksi", "lahanditawarkan.id", "transaksi.idPenawaran")
+    .groupBy('transaksi.idPenawaran')
     .then((ress) => {
-      res.json({dataLahan:ress});
+      res.json({ dataLahan: ress });
     })
     .catch((error) => {
       res.status(500).json(error);
@@ -38,7 +54,7 @@ router.post("/byid", (req, res) => {
     .select()
     .from("lahanditawarkan")
     .where({
-      id: req.body.id
+      id: req.body.id,
     })
     .then((ress) => {
       res.json(ress[0]);
