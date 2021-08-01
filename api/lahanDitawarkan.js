@@ -22,16 +22,6 @@ const schemaporto = Joi.object().keys({
 });
 
 router.get("/", (req, res) => {
-  // knex
-  //   .select()
-  //   .from("lahanditawarkan")
-  //   .then((ress) => {
-  //     res.json({dataLahan:ress});
-  //   })
-  //   .catch((error) => {
-  //     res.status(500).json(error);
-  //   });
-
   knex("lahanditawarkan")
     .select(
       "lahanditawarkan.*",
@@ -43,7 +33,7 @@ router.get("/", (req, res) => {
       )
     )
     .leftOuterJoin("transaksi", "lahanditawarkan.id", "transaksi.idPenawaran")
-    .groupBy('transaksi.idPenawaran')
+    .groupBy("transaksi.idPenawaran")
     .then((ress) => {
       res.json({ dataLahan: ress });
     })
