@@ -37,6 +37,9 @@ router.get("/", (req, res) => {
       "lahanditawarkan.*",
       knex.raw(
         "(lahanditawarkan.jumlahSlot - SUM(transaksi.jumlahslot)) as slotsementara"
+      ),
+      knex.raw(
+        "(lahanditawarkan.harga * SUM(transaksi.jumlahslot)) as danaTerkumpul"
       )
     )
     .leftOuterJoin("transaksi", "lahanditawarkan.id", "transaksi.idPenawaran")
